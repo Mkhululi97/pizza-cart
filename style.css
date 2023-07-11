@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&family=Merriweather:wght@300;400;700&display=swap");
+
+body {
+  background-color: #003049;
+  font-family: "Epilogue", sans-serif;
+  font-family: "Merriweather", serif;
+  padding: 15px;
+}
+/* GENERAL STYLES */
+html {
+  font-size: 62.5%;
+}
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+/* HEADER SECTION*/
+h1 {
+  text-align: center;
+  color: #eae2b7;
+  font-size: 3.6rem;
+  margin-bottom: 45px;
+}
+h2 {
+  font-size: 2.8rem;
+}
+h3 {
+  font-size: 2rem;
+}
+p,
+.label {
+  font-size: 1.8rem;
+}
+/* MAIN SECTION */
+.pizza-card-sm,
+.pizza-card-md,
+.pizza-card-lr {
+  padding: 14px;
+}
+.pizza-card-sm,
+.pizza-card-md,
+.pizza-card-lr {
+  margin-bottom: 15px;
+}
+.pizza-card-sm {
+  background-color: #eae2b7;
+}
+.pizza-card-md {
+  background-color: #fcbf49;
+}
+.pizza-card-lr {
+  background-color: #d62828;
+}
+
+.img-pizza-small {
+  width: 8rem;
+}
+.pizza-img-medium {
+  width: 9rem;
+}
+.pizza-img-large {
+  width: 13rem;
+}
+img {
+  float: right;
+}
+
+/* FOOTER SECTION */
+.footer {
+  background-color: #f77f00;
+  padding: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 45px;
+}
+
+/* MEDIDA QUERIES */
+@media (min-width: 960px) {
+  img {
+    float: revert;
+  }
+  .pizzas {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+/* ++++++++++ */
+.flex {
+  display: flex;
+  align-items: center;
+}
+.shopping-cart-container {
+  background-color: #eae2b7;
+  padding: 2rem;
+}
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 7px;
+  background-color: #003049;
+  color: #fff;
+}
+/* ++++++++++ */
