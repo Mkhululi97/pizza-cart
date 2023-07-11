@@ -23,31 +23,42 @@
       defer
     ></script>
     <!-- ***** ALPINEJS ***** -->
+    <style>
+      [x-cloak] {
+        display: none;
+      }
+    </style>
     <title>Pizza-Cart</title>
   </head>
   <body>
     <div class="container">
-      <div class="shopping-cart-container">
-        <div class="shopping-cart">
-          <h3>Shopping Cart</h3>
-          <div class="sm-pizza">
-            <div class="row flex">
-              <p class="size">small</p>
-              <div class="qauntity flex">
-                <div class="add-icon">
-                  <ion-icon size="large" name="add-circle-outline"></ion-icon>
+      <div
+        x-data="{
+        total_sm: 0,
+        total_amount:0
+      }"
+      >
+        <div class="shopping-cart-container">
+          <div class="shopping-cart">
+            <h3>Shopping Cart</h3>
+            <div class="sm-pizza">
+              <div class="row flex">
+                <p class="size">small</p>
+                <div class="qauntity flex">
+                  <div class="add-icon">
+                    <ion-icon size="large" name="add-circle-outline"></ion-icon>
+                  </div>
+                  <div class="minus-icon">
+                    <ion-icon
+                      size="large"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </div>
                 </div>
-                <div class="minus-icon">
-                  <ion-icon
-                    size="large"
-                    name="remove-circle-outline"
-                  ></ion-icon>
-                </div>
+                <p class="sm-pizza-cost" x-text="total_sm"></p>
               </div>
-              <p class="sm-pizza-cost">31.99</p>
             </div>
-          </div>
-          <!-- 
+            <!-- 
             <div class="md-pizza">
               <div class="row">
                 <p class="size"></p>
@@ -67,67 +78,72 @@
                 </div>
               </div>
             </div> -->
-          <div class="total-cost flex">
-            <p class="total-text">Total cost</p>
-            <p class="total-amount">31.99</p>
-          </div>
-        </div>
-        <button class="btn">Check out</button>
-        <label class="label">Payment amount:</label>
-        <input type="text" />
-        <button class="btn">Pay</button>
-      </div>
+            <div class="total-cost flex">
+              <p class="total-text">Total cost</p>
 
-      <div class="header">
-        <h1>Perfect Pizza</h1>
-      </div>
-      <div class="main">
-        <div class="pizzas">
-          <div class="pizza-card-md">
-            <img
-              class="pizza-img-medium"
-              src="pizza-img.png"
-              alt="icon of a pizza"
-            />
-            <h2>Medium Pizza</h2>
-            <h3>R78.99</h3>
-            <p>
-              medium margeritha pizza with 3 toppings max. 2 or less meat
-              topping. 3 or less other toppings.
-            </p>
-            <button class="btn">Buy</button>
+              <p class="total-amount" x-text="total_amount=total_sm"></p>
+            </div>
           </div>
-          <div class="pizza-card-lr">
-            <img
-              class="pizza-img-large"
-              src="pizza-img.png"
-              alt="icon of a pizza"
-            />
-            <h2>Large Pizza</h2>
-            <h3>R129.99</h3>
-            <p>
-              large margeritha pizza with 3 toppings max. 3 meat toppings max. 3
-              or less other toppings.
-            </p>
-            <button class="btn">Buy</button>
-          </div>
-          <div class="pizza-card-sm">
-            <img
-              class="img-pizza-small"
-              src="pizza-img.png"
-              alt="icon of a pizza"
-            />
-            <h2>Small Pizza</h2>
-            <h3>R59.99</h3>
-            <p>
-              small pizza with 3 toppings 1 meat topping. 3 or less other
-              toppings
-            </p>
-            <button class="btn">Buy</button>
+          <button class="btn">Check out</button>
+          <label class="label">Payment amount:</label>
+          <input type="text" />
+          <button class="btn">Pay</button>
+        </div>
+
+        <div class="header">
+          <h1>Perfect Pizza</h1>
+        </div>
+        <div class="main">
+          <div class="pizzas">
+            <div class="pizza-card-md">
+              <img
+                class="pizza-img-medium"
+                src="pizza-img.png"
+                alt="icon of a pizza"
+              />
+              <h2>Medium Pizza</h2>
+              <h3>R78.99</h3>
+              <p>
+                medium margeritha pizza with 3 toppings max. 2 or less meat
+                topping. 3 or less other toppings.
+              </p>
+              <button class="btn pizza-md-btn">Buy</button>
+            </div>
+            <div class="pizza-card-lr">
+              <img
+                class="pizza-img-large"
+                src="pizza-img.png"
+                alt="icon of a pizza"
+              />
+              <h2>Large Pizza</h2>
+              <h3>R129.99</h3>
+              <p>
+                large margeritha pizza with 3 toppings max. 3 meat toppings max.
+                3 or less other toppings.
+              </p>
+              <button class="btn pizza-lg-btn">Buy</button>
+            </div>
+            <div class="pizza-card-sm">
+              <img
+                class="img-pizza-small"
+                src="pizza-img.png"
+                alt="icon of a pizza"
+              />
+              <h2>Small Pizza</h2>
+              <h3>R59.99</h3>
+              <p>
+                small pizza with 3 toppings 1 meat topping. 3 or less other
+                toppings
+              </p>
+              <button class="btn pizza-sm-btn" @click="total_sm+=31.99">
+                Buy
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="footer">
       <div class="contact-us">
         <p>Contact us at: (021)-541-100 twitter</p>
