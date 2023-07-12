@@ -39,6 +39,7 @@
           payment: false,
           sm_pizza: false,
           check_out_btn: false,
+          msg:'',
           clear_cart(){
             if(this.paid_amount>=this.total_amount){
               this.sm_pizza=false;
@@ -46,8 +47,15 @@
               this.total_sm=0;
               this.total_amount=0
               this.payment=false;
+              this.msg='Enjoy your pizza meals😋🍕';
+            }else{
+              this.msg='Sorry that is not enough money'
             }
+            setTimeout(()=>{
+              this.msg=''
+            }, 3500)
           }
+          
       }"
       >
         <div class="shopping-cart-container">
@@ -106,12 +114,8 @@
           >
             Check out
           </button>
-          <template x-if="paid_amount >= total_amount && paid_amount > 0">
-            <p>Enjoy your pizza meals😋🍕</p>
-          </template>
-          <template x-if="paid_amount <= total_amount && paid_amount > 0">
-            <p>Sorry that is not enough money</p>
-          </template>
+          <p></p>
+          <p x-text="msg"></p>
           <!-- <template x-if="paid_amount >= total_amount"> -->
           <!-- sm_pizza=false total_cost=false , total_sm=0, total_amount=0, payment=false -->
           <!-- $refs.pay_btn.@click='alert('+')' -->
@@ -122,7 +126,7 @@
             <input type="number" max="5" x-ref="text" />
             <button
               class="btn"
-              @click="paid_amount=Number($refs.text.value), clear_cart()"
+              @click="paid_amount=Number($refs.text.value), $refs.text.value = '', clear_cart()"
             >
               Pay
             </button>
