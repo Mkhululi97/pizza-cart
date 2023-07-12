@@ -18,10 +18,8 @@
     ></script> -->
     <!-- ***** BOOTSTRAP ***** -->
     <!-- ***** ALPINEJS ***** -->
-    <script
-      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"
-      defer
-    ></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     <!-- ***** ALPINEJS ***** -->
     <style>
       [x-cloak] {
@@ -36,16 +34,26 @@
         x-data="{
           total_sm: 0,
           total_amount:0,
+          paid_amount:0,
           total_cost: false,
           payment: false,
           sm_pizza: false,
-          check_out_btn: false
+          check_out_btn: false,
+          clear_cart(){
+            if(this.paid_amount>=this.total_amount){
+              this.sm_pizza=false;
+              this.total_cost=false;
+              this.total_sm=0;
+              this.total_amount=0
+              this.payment=false;
+            }
+          }
       }"
       >
         <div class="shopping-cart-container">
           <div class="shopping-cart">
             <h3>Shopping Cart</h3>
-            <div class="sm-pizza" x-show="sm_pizza">
+            <div class="sm-pizza" x-show="sm_pizza" x-ref="sm_pizza_el">
               <div class="row flex">
                 <p class="size">small</p>
                 <div class="qauntity flex">
@@ -59,7 +67,7 @@
                     ></ion-icon>
                   </div>
                 </div>
-                <p class="sm-pizza-cost" x-text="total_sm"></p>
+                <p class="sm-pizza-cost" x-text="total_sm.toFixed(2)"></p>
               </div>
             </div>
             <!-- 
@@ -85,20 +93,39 @@
             <div class="total-cost flex" x-show="total_cost">
               <p class="total-text">Total cost</p>
 
-              <p class="total-amount" x-text="total_amount=total_sm"></p>
+              <p
+                class="total-amount"
+                x-text="total_amount=total_sm.toFixed(2)"
+              ></p>
             </div>
           </div>
           <button
             class="btn check-out-btn"
-            @click="payment= true"
+            @click="payment = true, check_out_btn = false"
             x-show="check_out_btn"
           >
             Check out
           </button>
+          <template x-if="paid_amount >= total_amount && paid_amount > 0">
+            <p>Enjoy your pizza meals😋🍕</p>
+          </template>
+          <template x-if="paid_amount <= total_amount && paid_amount > 0">
+            <p>Sorry that is not enough money</p>
+          </template>
+          <!-- <template x-if="paid_amount >= total_amount"> -->
+          <!-- sm_pizza=false total_cost=false , total_sm=0, total_amount=0, payment=false -->
+          <!-- $refs.pay_btn.@click='alert('+')' -->
+          <!-- <div class="sm-pizza" x-show="sm_pizza">show sum content</div> -->
+          <!-- </template> -->
           <div x-show="payment">
             <label class="label">Payment amount:</label>
-            <input type="text" />
-            <button class="btn">Pay</button>
+            <input type="number" max="5" x-ref="text" />
+            <button
+              class="btn"
+              @click="paid_amount=Number($refs.text.value), clear_cart()"
+            >
+              Pay
+            </button>
           </div>
         </div>
 
@@ -149,7 +176,7 @@
               </p>
               <button
                 class="btn pizza-sm-btn"
-                @click="total_sm+=59.99, sm_pizza=true, check_out_btn=true"
+                @click="total_sm+=59.99, sm_pizza=true, check_out_btn=true,  total_cost=true"
               >
                 Buy
               </button>
