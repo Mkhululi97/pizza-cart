@@ -1,10 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&family=Merriweather:wght@300;400;700&display=swap");
-
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   background-color: #003049;
   font-family: "Epilogue", sans-serif;
   font-family: "Merriweather", serif;
-  padding: 15px;
+  padding-inline: 15px;
 }
 /* GENERAL STYLES */
 html {
@@ -89,10 +93,20 @@ img {
 .flex {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+.shopping-cart h3 {
+  text-align: center;
+}
+.row,
+.total-cost {
+  gap: 1rem;
 }
 .shopping-cart-container {
   background-color: #eae2b7;
   padding: 2rem;
+  margin-block-end: 2rem;
+  justify-content: center;
 }
 .btn {
   padding: 1rem 2rem;
@@ -100,5 +114,22 @@ img {
   border-radius: 7px;
   background-color: #003049;
   color: #fff;
+}
+.pizzas p {
+  padding-block: 2rem;
+}
+.pizza-cart,
+.total-cost,
+h3 {
+  margin-bottom: 1.5rem;
+}
+input {
+  padding-block: 10px;
+  border: none;
+  border-radius: 2px;
+  margin-inline: 10px;
+}
+.msg {
+  padding-block-end: 2rem;
 }
 /* ++++++++++ */

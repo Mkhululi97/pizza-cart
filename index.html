@@ -4,22 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <!-- ***** BOOTSTRAP ***** -->
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- ***** BOOTSTRAP ***** -->
     <!-- ***** ALPINEJS ***** -->
     <script src="//unpkg.com/alpinejs" defer></script>
-
     <!-- ***** ALPINEJS ***** -->
     <style>
       [x-cloak] {
@@ -30,21 +16,33 @@
   </head>
   <body>
     <div class="container">
+      <div class="header">
+        <h1>Perfect Pizza</h1>
+      </div>
+      <!-- SHOPPING CART -->
       <div
         x-data="{
           total_sm: 0,
+          total_md:0,
+          total_lg:0,
           total_amount:0,
           paid_amount:0,
           total_cost: false,
           payment: false,
           sm_pizza: false,
+          md_pizza: false,
+          lg_pizza:false,
           check_out_btn: false,
           msg:'',
           clear_cart(){
             if(this.paid_amount>=this.total_amount){
               this.sm_pizza=false;
+              this.md_pizza=false;
+              this.lg_pizza=false;
               this.total_cost=false;
               this.total_sm=0;
+              this.total_md=0;
+              this.total_lg=0;
               this.total_amount=0
               this.payment=false;
               this.msg='Enjoy your pizza meals😋🍕';
@@ -58,12 +56,13 @@
           
       }"
       >
-        <div class="shopping-cart-container">
-          <div class="shopping-cart">
+        <div class="shopping-cart-container flex">
+          <div class="shopping-cart" x-cloak>
             <h3>Shopping Cart</h3>
-            <div class="sm-pizza" x-show="sm_pizza" x-ref="sm_pizza_el">
+            <!-- small pizza details -->
+            <div class="sm-pizza pizza-cart" x-show="sm_pizza">
               <div class="row flex">
-                <p class="size">small</p>
+                <p class="size">Small</p>
                 <div class="qauntity flex">
                   <div class="add-icon" @click="total_sm+=59.99">
                     <ion-icon size="large" name="add-circle-outline"></ion-icon>
@@ -75,67 +74,91 @@
                     ></ion-icon>
                   </div>
                 </div>
-                <p class="sm-pizza-cost" x-text="total_sm.toFixed(2)"></p>
+                <p class="sm-pizza-cost">
+                  R
+                  <span
+                    x-text="total_sm>0 ? total_sm.toFixed(2) : total_sm=0"
+                  ></span>
+                </p>
               </div>
             </div>
-            <!-- 
-            <div class="md-pizza">
-              <div class="row">
-                <p class="size"></p>
-                <div class="qauntity">
-                  <div class="add"></div>
-                  <div class="minus"></div>
+            <!-- medium pizza details -->
+            <div class="md-pizza pizza-cart" x-show="md_pizza">
+              <div class="row flex">
+                <p class="size">Medium</p>
+                <div class="qauntity flex">
+                  <div class="add-icon" @click="total_md+=78.99">
+                    <ion-icon size="large" name="add-circle-outline"></ion-icon>
+                  </div>
+                  <div class="minus-icon" @click="total_md-=78.99">
+                    <ion-icon
+                      size="large"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </div>
                 </div>
-                <p class="cost"></p>
+                <p class="md-pizza-cost">
+                  R
+                  <span
+                    x-text="total_md>0 ? total_md.toFixed(2) : total_md=0"
+                  ></span>
+                </p>
               </div>
             </div>
-            <div class="lg-pizza">
-              <div class="row">
-                <p class="size"></p>
-                <div class="qauntity">
-                  <div class="add"></div>
-                  <div class="minus"></div>
+            <!-- large pizza details -->
+            <div class="lg-pizza pizza-cart" x-show="lg_pizza">
+              <div class="row flex">
+                <p class="size">Large</p>
+                <div class="qauntity flex">
+                  <div class="add-icon" @click="total_lg+=129.99">
+                    <ion-icon size="large" name="add-circle-outline"></ion-icon>
+                  </div>
+                  <div class="minus-icon" @click="total_lg-=129.99">
+                    <ion-icon
+                      size="large"
+                      name="remove-circle-outline"
+                    ></ion-icon>
+                  </div>
                 </div>
+                <p class="lg-pizza-cost">
+                  R
+                  <span
+                    x-text="total_lg>0 ? total_lg.toFixed(2) : total_lg=0"
+                  ></span>
+                </p>
               </div>
-            </div> -->
+            </div>
+            <!-- overall total details -->
             <div class="total-cost flex" x-show="total_cost">
-              <p class="total-text">Total cost</p>
-
+              <p class="total-text">Total cost: R</p>
               <p
                 class="total-amount"
-                x-text="total_amount=total_sm.toFixed(2)"
+                x-text="total_amount=(total_sm+total_md+total_lg).toFixed(2)"
               ></p>
             </div>
-          </div>
-          <button
-            class="btn check-out-btn"
-            @click="payment = true, check_out_btn = false"
-            x-show="check_out_btn"
-          >
-            Check out
-          </button>
-          <p></p>
-          <p x-text="msg"></p>
-          <!-- <template x-if="paid_amount >= total_amount"> -->
-          <!-- sm_pizza=false total_cost=false , total_sm=0, total_amount=0, payment=false -->
-          <!-- $refs.pay_btn.@click='alert('+')' -->
-          <!-- <div class="sm-pizza" x-show="sm_pizza">show sum content</div> -->
-          <!-- </template> -->
-          <div x-show="payment">
-            <label class="label">Payment amount:</label>
-            <input type="number" max="5" x-ref="text" />
+            <!-- Checkout & payment process -->
             <button
-              class="btn"
-              @click="paid_amount=Number($refs.text.value), $refs.text.value = '', clear_cart()"
+              class="btn check-out-btn"
+              @click="total_amount>=59.99 ? (payment=true, check_out_btn=false) : '' "
+              x-show="check_out_btn"
             >
-              Pay
+              Check out
             </button>
+            <p class="msg" x-text="msg"></p>
+
+            <div x-show="payment">
+              <label class="label">Payment amount:</label>
+              <input type="number" max="5" x-ref="textInput" />
+              <button
+                class="btn"
+                @click="paid_amount=Number($refs.textInput.value), $refs.textInput.value = '', clear_cart()"
+              >
+                Pay
+              </button>
+            </div>
           </div>
         </div>
-
-        <div class="header">
-          <h1>Perfect Pizza</h1>
-        </div>
+        <!-- PIZZA PAMPHLET -->
         <div class="main">
           <div class="pizzas">
             <div class="pizza-card-md">
@@ -150,7 +173,12 @@
                 medium margeritha pizza with 3 toppings max. 2 or less meat
                 topping. 3 or less other toppings.
               </p>
-              <button class="btn pizza-md-btn">Buy</button>
+              <button
+                class="btn pizza-md-btn"
+                @click="total_md+=78.99, md_pizza=true, check_out_btn=true, total_cost=true, payment=false"
+              >
+                Buy
+              </button>
             </div>
             <div class="pizza-card-lr">
               <img
@@ -164,7 +192,12 @@
                 large margeritha pizza with 3 toppings max. 3 meat toppings max.
                 3 or less other toppings.
               </p>
-              <button class="btn pizza-lg-btn">Buy</button>
+              <button
+                class="btn pizza-lg-btn"
+                @click="total_lg+=129.99, lg_pizza=true, check_out_btn=true, total_cost=true, payment=false"
+              >
+                Buy
+              </button>
             </div>
             <div class="pizza-card-sm">
               <img
@@ -180,7 +213,7 @@
               </p>
               <button
                 class="btn pizza-sm-btn"
-                @click="total_sm+=59.99, sm_pizza=true, check_out_btn=true,  total_cost=true"
+                @click="total_sm+=59.99, sm_pizza=true, check_out_btn=true, total_cost=true, payment=false"
               >
                 Buy
               </button>
